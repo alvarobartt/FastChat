@@ -2306,6 +2306,15 @@ class CllmAdapter(BaseModelAdapter):
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("cllm")
 
+class MistralORPOAdapter(BaseModelAdapter):
+    """The model adapter for Mistral ORPO with ChatML format (e.g. alvarobartt/mistral-orpo-mix)"""
+
+    def match(self, model_path: str) -> bool:
+        return "mistral-orpo" in model_path.lower()
+
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("mistral-orpo")
+
 
 # Note: the registration order matters.
 # The one registered earlier has a higher matching priority.
@@ -2398,6 +2407,7 @@ register_model_adapter(LlavaAdapter)
 register_model_adapter(YuanAdapter)
 register_model_adapter(GemmaAdapter)
 register_model_adapter(CllmAdapter)
+register_model_adapter(MistralORPOAdapter)
 
 # After all adapters, try the default base adapter.
 register_model_adapter(BaseModelAdapter)

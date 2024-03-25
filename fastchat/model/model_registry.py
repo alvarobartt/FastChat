@@ -682,3 +682,10 @@ register_model_info(
     "https://huggingface.co/cllm",
     "consistency-llm is a new generation of parallel decoder LLMs with fast generation speed.",
 )
+
+register_model_info(
+    ["alvarobartt/mistral-orpo-mix"],
+    "mistral-orpo",
+    "https://huggingface.co/alvarobartt",
+    "A single-turn fine-tuned LLM using ORPO on top of Mistral 7B v0.1",
+)
