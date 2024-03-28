@@ -9,7 +9,7 @@ import base64
 import dataclasses
 from enum import auto, IntEnum
 from io import BytesIO
-from typing import List, Any, Dict, Union, Tuple
+from typing import List, Dict, Union, Tuple
 
 
 class SeparatorStyle(IntEnum):
@@ -1623,12 +1623,10 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="mistral-orpo",
-        system_template="<|im_start|>system\n{system_message}",
         roles=("<|im_start|>user", "<|im_start|>assistant"),
         sep_style=SeparatorStyle.CHATML,
-        sep="</s>",
-        stop_token_ids=[2],
-        stop_str="</s>",
+        sep="<|im_end|>",
+        stop_str="<|im_end|>",
     )
 )
 
