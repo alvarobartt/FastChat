@@ -684,7 +684,9 @@ register_model_info(
 )
 
 register_model_info(
-    ["alvarobartt/mistral-orpo-mix"],
+    [
+        "alvarobartt/mistral-7b-orpo-airoboros-pref-10k",
+    ],
     "mistral-orpo",
     "https://huggingface.co/alvarobartt",
     "A single-turn fine-tuned LLM using ORPO on top of Mistral 7B v0.1",
