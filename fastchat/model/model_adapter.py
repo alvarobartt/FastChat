@@ -2310,7 +2310,7 @@ class MistralORPOAdapter(BaseModelAdapter):
     """The model adapter for Mistral ORPO with ChatML format (e.g. alvarobartt/mistral-orpo-mix)"""
 
     def match(self, model_path: str) -> bool:
-        return "mistral-orpo" in model_path.lower()
+        return all(k in model_path.lower() for k in ["mistral", "orpo"])
 
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("mistral-orpo")
@@ -2321,6 +2321,7 @@ class MistralORPOAdapter(BaseModelAdapter):
 register_model_adapter(PeftModelAdapter)
 register_model_adapter(StableVicunaAdapter)
 register_model_adapter(VicunaAdapter)
+register_model_adapter(MistralORPOAdapter)
 register_model_adapter(AiroborosAdapter)
 register_model_adapter(LongChatAdapter)
 register_model_adapter(GoogleT5Adapter)
@@ -2407,7 +2408,6 @@ register_model_adapter(LlavaAdapter)
 register_model_adapter(YuanAdapter)
 register_model_adapter(GemmaAdapter)
 register_model_adapter(CllmAdapter)
-register_model_adapter(MistralORPOAdapter)
 
 # After all adapters, try the default base adapter.
 register_model_adapter(BaseModelAdapter)
