@@ -1620,13 +1620,24 @@ register_conv_template(
     )
 )
 
+# register_conv_template(
+#     Conversation(
+#         name="mistral-orpo",
+#         roles=("<|im_start|>user", "<|im_start|>assistant"),
+#         sep_style=SeparatorStyle.CHATML,
+#         sep="<|im_end|>",
+#         stop_str="<|im_end|>",
+#     )
+# )
+
 register_conv_template(
     Conversation(
         name="mistral-orpo",
-        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        roles=("<|user|>", "<|assistant|>"),
         sep_style=SeparatorStyle.CHATML,
-        sep="<|im_end|>",
-        stop_str="<|im_end|>",
+        sep="</s>",
+        stop_token_ids=[2],
+        stop_str="</s>",
     )
 )
 

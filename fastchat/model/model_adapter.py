@@ -2312,16 +2312,34 @@ class MistralORPOAdapter(BaseModelAdapter):
     def match(self, model_path: str) -> bool:
         return all(k in model_path.lower() for k in ["mistral", "orpo"])
 
+    def load_model(self, model_path: str, from_pretrained_kwargs: dict):
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_path,
+            model_max_length=2048,
+            padding_side="right",
+        )
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+        model = AutoModelForCausalLM.from_pretrained(
+            model_path,
+            torch_dtype=torch.bfloat16,
+            low_cpu_mem_usage=True,
+            device_map="auto",
+            attn_implementation="flash_attention_2",
+        )
+
+        return model, tokenizer
+
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("mistral-orpo")
 
 
 # Note: the registration order matters.
 # The one registered earlier has a higher matching priority.
+register_model_adapter(MistralORPOAdapter)
 register_model_adapter(PeftModelAdapter)
 register_model_adapter(StableVicunaAdapter)
 register_model_adapter(VicunaAdapter)
-register_model_adapter(MistralORPOAdapter)
 register_model_adapter(AiroborosAdapter)
 register_model_adapter(LongChatAdapter)
 register_model_adapter(GoogleT5Adapter)
